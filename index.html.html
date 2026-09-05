@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Prépositions de Lieu - A1</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f4fbf6;
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.08), 0 8px 10px -6px rgba(34, 197, 94, 0.04);
+        }
+
+        .match-card {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+        }
+
+        .match-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .badge-assigned {
+            animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="h-full font-sans text-slate-800 flex flex-col justify-between">
+
+    <!-- Header Atas -->
+    <header class="bg-white/90 backdrop-blur-md border-b border-brand-200 sticky top-0 z-30">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-2xl bg-brand-500 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-brand-500/20">
+                    <i class="fa-solid fa-house-chimney"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg text-slate-800 leading-tight">Les Prépositions de Lieu</h1>
+                    <p class="text-xs text-brand-700 font-medium">Niveau A1 • Le logement et la ville</p>
+                </div>
+            </div>
+
+            <!-- Kontrol Header -->
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                <button onclick="toggleRevisionModal()" class="px-3 py-1.5 rounded-xl bg-brand-100 hover:bg-brand-200 text-brand-800 text-xs sm:text-sm font-semibold transition flex items-center gap-2">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span class="hidden sm:inline">Fiche Révision</span>
+                </button>
+                <div class="bg-brand-50 border border-brand-200 px-3 py-1.5 rounded-xl flex items-center gap-2">
+                    <i class="fa-solid fa-layer-group text-brand-600 text-sm"></i>
+                    <span id="level-indicator" class="font-bold text-xs sm:text-sm text-brand-900">Niveau 1/3</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main class="max-w-5xl mx-auto px-4 py-6 flex-grow w-full">
+        
+        <!-- Banner Informasi -->
+        <div id="intro-card" class="bg-gradient-to-r from-brand-600 to-emerald-500 rounded-3xl p-6 text-white mb-6 shadow-lg shadow-brand-600/15 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl">
+                <i class="fa-solid fa-city"></i>
+            </div>
+            <div class="relative z-10 max-w-2xl">
+                <span class="bg-white/20 text-white text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wider">Activité d'association</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold mt-2">Les Prépositions de Lieu</h2>
+                <p class="text-brand-100 text-sm sm:text-base mt-2 leading-relaxed">
+                    Pilih opsi di sebelah kiri, lalu pilih pasangannya di sebelah kanan. Gunakan denah/peta visual yang tersedia untuk memandu jawabanmu. Hasil dan skor akan diperiksa di akhir setelah semua terjodohkan!
+                </p>
+            </div>
+        </div>
+
+        <!-- Tombol Tab Level -->
+        <div class="flex flex-wrap gap-2 mb-6">
+            <button onclick="switchLevel(1)" id="tab-lvl-1" class="tab-btn px-4 py-2.5 rounded-2xl text-sm font-bold transition flex items-center gap-2 bg-brand-600 text-white shadow-md">
+                <i class="fa-solid fa-shapes"></i>
+                <span>Niveau 1 : Les bases</span>
+            </button>
+            <button onclick="switchLevel(2)" id="tab-lvl-2" class="tab-btn px-4 py-2.5 rounded-2xl text-sm font-bold transition flex items-center gap-2 bg-white text-slate-600 hover:bg-brand-50 border border-slate-200">
+                <i class="fa-solid fa-couch"></i>
+                <span>Niveau 2 : Le logement</span>
+            </button>
+            <button onclick="switchLevel(3)" id="tab-lvl-3" class="tab-btn px-4 py-2.5 rounded-2xl text-sm font-bold transition flex items-center gap-2 bg-white text-slate-600 hover:bg-brand-50 border border-slate-200">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>Niveau 3 : La ville</span>
+            </button>
+        </div>
+
+        <!-- Visual Map Container (Niveau 2 & Niveau 3) -->
+        <div id="map-container" class="mb-6 hidden">
+            <div class="bg-white rounded-3xl p-4 sm:p-6 card-shadow border border-brand-100">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 id="map-title" class="font-bold text-slate-800 text-sm sm:text-base flex items-center gap-2">
+                        <i class="fa-solid fa-map-location-dot text-brand-600"></i>
+                        <span>Peta Panduan Visual</span>
+                    </h3>
+                    <span class="text-xs text-brand-700 bg-brand-50 font-semibold px-2.5 py-1 rounded-lg">
+                        <i class="fa-solid fa-circle-info mr-1"></i> Perhatikan posisi objek/tempat
+                    </span>
+                </div>
+                
+                <!-- SVG Vector Map Render Area -->
+                <div id="map-svg-wrapper" class="w-full bg-brand-50/50 rounded-2xl p-2 border border-brand-100 flex items-center justify-center overflow-hidden">
+                    <!-- SVG Visual Map Injected Here via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Area Kartu Menjodohkan -->
+        <div id="game-container" class="bg-white rounded-3xl p-5 sm:p-8 card-shadow border border-brand-100 relative">
+            
+            <!-- Progress Bar -->
+            <div class="mb-6">
+                <div class="flex justify-between items-center text-xs font-bold text-slate-500 mb-2">
+                    <span id="level-title-display">Niveau 1 : Les bases des prépositions</span>
+                    <span id="progress-text">0/6 Terpasang</span>
+                </div>
+                <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="bg-brand-500 h-full w-0 transition-all duration-500 rounded-full"></div>
+                </div>
+            </div>
+
+            <!-- Grid Menjodohkan -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 relative">
+                
+                <!-- Kolom Kiri -->
+                <div id="left-column" class="space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-brand-700 bg-brand-50 px-3 py-1.5 rounded-lg inline-block mb-1">
+                        <i class="fa-solid fa-arrow-right-to-bracket mr-1"></i> Subjek / Frasa Bahasa Prancis
+                    </h3>
+                    <div id="left-items" class="space-y-3">
+                        <!-- Dynamic Elements -->
+                    </div>
+                </div>
+
+                <!-- Kolom Kanan -->
+                <div id="right-column" class="space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-brand-700 bg-brand-50 px-3 py-1.5 rounded-lg inline-block mb-1">
+                        <i class="fa-solid fa-link mr-1"></i> Pasangan / Preposisi / Arti
+                    </h3>
+                    <div id="right-items" class="space-y-3">
+                        <!-- Dynamic Elements -->
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Tombol Aksi -->
+            <div class="mt-8 pt-6 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
+                <button onclick="resetCurrentLevel()" class="px-4 py-2.5 rounded-xl text-slate-500 hover:text-brand-700 hover:bg-brand-50 font-semibold text-xs sm:text-sm transition flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>Reset Tingkat Ini</span>
+                </button>
+
+                <button id="verify-btn" onclick="verifyAnswers()" disabled class="px-6 py-3 rounded-2xl bg-slate-200 text-slate-400 font-bold text-sm transition flex items-center gap-2 cursor-not-allowed">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>Vérifier les réponses (Periksa)</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Modal Hasil & Umpan Balik (Diakses Setelah Klik Periksa) -->
+        <div id="feedback-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+            <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 card-shadow border border-brand-100 my-8 transform transition-all">
+                
+                <div class="text-center">
+                    <div id="feedback-badge" class="w-20 h-20 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-4xl mx-auto mb-4 shadow-inner">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <span id="feedback-level-tag" class="text-xs font-bold text-brand-700 bg-brand-100 px-3 py-1 rounded-full uppercase">Hasil Evaluasi Niveau</span>
+                    <h2 id="feedback-title" class="text-2xl sm:text-3xl font-extrabold text-slate-800 mt-2">Magnifique !</h2>
+                    <p id="feedback-subtitle" class="text-slate-600 text-sm mt-1">Berikut adalah detail nilai dan analisis pengerjaanmu.</p>
+                </div>
+
+                <!-- Box Ringkasan Skor -->
+                <div class="grid grid-cols-3 gap-3 my-6 bg-brand-50/70 p-4 rounded-2xl border border-brand-100 text-center">
+                    <div>
+                        <span class="block text-xs font-semibold text-slate-500">Skor Benar</span>
+                        <span id="final-score" class="text-2xl font-black text-brand-700">0/6</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-semibold text-slate-500">Akurasi</span>
+                        <span id="final-accuracy" class="text-2xl font-black text-brand-700">0%</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-semibold text-slate-500">Predikat</span>
+                        <span id="final-grade" class="text-base sm:text-lg font-bold text-emerald-600 mt-1">A1 Master</span>
+                    </div>
+                </div>
+
+                <!-- Rincian Jawaban -->
+                <div class="mb-6">
+                    <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-brand-600"></i>
+                        <span>Rincian Hasil Pengerjaan:</span>
+                    </h3>
+                    <div id="answers-breakdown" class="space-y-2 max-h-48 overflow-y-auto pr-1 text-xs sm:text-sm">
+                        <!-- Dynamic Breakdown Items -->
+                    </div>
+                </div>
+
+                <!-- Umpan Balik Edukatif Tata Bahasa -->
+                <div class="space-y-3 text-left">
+                    <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-brand-600"></i>
+                        <span>Umpan Balik & Catatan Grammaire:</span>
+                    </h3>
+                    <div id="feedback-notes" class="bg-slate-50 p-4 rounded-2xl text-xs sm:text-sm text-slate-600 space-y-2 border border-slate-200/80 leading-relaxed">
+                        <!-- Dynamic Grammar Notes -->
+                    </div>
+                </div>
+
+                <!-- Aksi Modal -->
+                <div class="mt-6 flex flex-col sm:flex-row gap-3">
+                    <button id="next-level-btn" onclick="nextLevelOrRestart()" class="flex-1 py-3 px-4 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl transition shadow-lg shadow-brand-600/20 text-center text-sm flex items-center justify-center gap-2">
+                        <span>Lanjut ke Niveau Berikutnya</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    <button onclick="closeFeedbackModal()" class="py-3 px-5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition text-center text-sm">
+                        <span>Tutup & Lihat Peta</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal Fiche Révision -->
+        <div id="revision-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+            <div class="bg-white rounded-3xl max-w-3xl w-full p-6 sm:p-8 card-shadow border border-brand-100 my-8">
+                <div class="flex justify-between items-center mb-6 border-b pb-4 border-slate-100">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-book text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-xl text-slate-800">Fiche Révision : Les Prépositions</h3>
+                            <p class="text-xs text-slate-500">Ringkasan Preposisi Tempat Niveau A1</p>
+                        </div>
+                    </div>
+                    <button onclick="toggleRevisionModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm max-h-[60vh] overflow-y-auto pr-1">
+                    
+                    <div class="p-3.5 rounded-2xl bg-brand-50/60 border border-brand-100">
+                        <span class="font-extrabold text-brand-800 text-base">dans</span>
+                        <p class="text-slate-600 mt-0.5"><strong>Di dalam</strong> suatu ruangan, bangunan, atau wadah.</p>
+                        <p class="text-xs text-brand-700 italic mt-1 font-medium">Ex: Le lit est <u>dans</u> la chambre.</p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-brand-50/60 border border-brand-100">
+                        <span class="font-extrabold text-brand-800 text-base">sur / sous</span>
+                        <p class="text-slate-600 mt-0.5"><strong>sur</strong> = Di atas (menempel) | <strong>sous</strong> = Di bawah.</p>
+                        <p class="text-xs text-brand-700 italic mt-1 font-medium">Ex: La télé est <u>sur</u> le meuble. Le tapis est <u>sous</u> la table.</p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-brand-50/60 border border-brand-100">
+                        <span class="font-extrabold text-brand-800 text-base">devant / derrière</span>
+                        <p class="text-slate-600 mt-0.5"><strong>devant</strong> = Di depan | <strong>derrière</strong> = Di belakang.</p>
+                        <p class="text-xs text-brand-700 italic mt-1 font-medium">Ex: Le jardin est <u>derrière</u> la maison.</p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-brand-50/60 border border-brand-100">
+                        <span class="font-extrabold text-brand-800 text-base">à côté de</span>
+                        <p class="text-slate-600 mt-0.5"><strong>Di samping / Di sebelah</strong> seseorang atau benda.</p>
+                        <p class="text-xs text-brand-700 italic mt-1 font-medium">Ex: La lampe est <u>à côté du</u> lit.</p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-brand-50/60 border border-brand-100">
+                        <span class="font-extrabold text-brand-800 text-base">entre</span>
+                        <p class="text-slate-600 mt-0.5"><strong>Di antara</strong> dua objek atau tempat.</p>
+                        <p class="text-xs text-brand-700 italic mt-1 font-medium">Ex: Le parc est <u>entre</u> le musée et la banque.</p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-brand-50/60 border border-brand-100">
+                        <span class="font-extrabold text-brand-800 text-base">en face de</span>
+                        <p class="text-slate-600 mt-0.5"><strong>Di seberang / berhadapan langsung</strong>.</p>
+                        <p class="text-xs text-brand-700 italic mt-1 font-medium">Ex: L'arrêt de bus est <u>en face de</u> la gare.</p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-brand-50/60 border border-brand-100 sm:col-span-2">
+                        <span class="font-extrabold text-brand-800 text-base">près de / loin de</span>
+                        <p class="text-slate-600 mt-0.5"><strong>près de</strong> = Dekat dengan | <strong>loin de</strong> = Jauh dari.</p>
+                        <p class="text-xs text-brand-700 italic mt-1 font-medium">Ex: L'aéroport est <u>loin de</u> la ville. Le parc est <u>près de</u> la gare.</p>
+                    </div>
+
+                </div>
+
+                <div class="mt-6 text-center">
+                    <button onclick="toggleRevisionModal()" class="w-full sm:w-auto px-6 py-2.5 bg-brand-600 text-white font-bold rounded-xl hover:bg-brand-700 transition">
+                        Compris ! (Saya Mengerti)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-brand-100 py-4 mt-8">
+        <div class="max-w-5xl mx-auto px-4 text-center text-xs text-slate-500">
+            Media Pembelajaran Bahasa Prancis A1 • Topik: <em>Le logement et la ville</em> • Matériel Pédagogique Interactif
+        </div>
+    </footer>
+
+    <script>
+        // Color Badges for Pairing Display
+        const PAIR_BADGES = [
+            { letter: 'A', bg: 'bg-emerald-500', text: 'text-white', border: 'border-emerald-500' },
+            { letter: 'B', bg: 'bg-blue-500', text: 'text-white', border: 'border-blue-500' },
+            { letter: 'C', bg: 'bg-indigo-500', text: 'text-white', border: 'border-indigo-500' },
+            { letter: 'D', bg: 'bg-amber-500', text: 'text-white', border: 'border-amber-500' },
+            { letter: 'E', bg: 'bg-rose-500', text: 'text-white', border: 'border-rose-500' },
+            { letter: 'F', bg: 'bg-teal-500', text: 'text-white', border: 'border-teal-500' }
+        ];
+
+        // SVG Maps Data
+        const VECTOR_MAPS = {
+            logement: `
+                <svg viewBox="0 0 800 380" class="w-full h-auto rounded-xl shadow-inner bg-emerald-50/40">
+                    <!-- Wall Background -->
+                    <rect x="10" y="10" width="780" height="360" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="4"/>
+                    
+                    <!-- Room Divider Wall -->
+                    <line x1="400" y1="10" x2="400" y2="370" stroke="#94a3b8" stroke-width="6" stroke-dasharray="10 6"/>
+
+                    <!-- ROOM 1: LA CHAMBRE -->
+                    <text x="30" y="40" font-weight="bold" fill="#1e293b" font-size="16">1. LA CHAMBRE (Kamar Tidur)</text>
+                    
+                    <!-- Bed (Lit) -->
+                    <rect x="40" y="70" width="120" height="180" rx="8" fill="#86efac" stroke="#16a34a" stroke-width="3"/>
+                    <rect x="50" y="80" width="100" height="40" rx="6" fill="#ffffff" stroke="#22c55e" stroke-width="2"/>
+                    <text x="100" y="160" text-anchor="middle" font-weight="bold" fill="#14532d" font-size="14">Le Lit (1)</text>
+
+                    <!-- Table de chevet (Nightstand) -->
+                    <rect x="175" y="70" width="45" height="45" rx="6" fill="#fde047" stroke="#ca8a04" stroke-width="2"/>
+                    <circle x="197" y="92" r="8" fill="#eab308"/>
+                    <text x="197" y="135" text-anchor="middle" font-weight="bold" fill="#713f12" font-size="11">Chevet (5)</text>
+
+                    <!-- Lampe sur la table de chevet -->
+                    <circle cx="197" cy="92" r="5" fill="#fef08a"/>
+
+                    <!-- Tapis (Rug) under table -->
+                    <rect x="250" y="180" width="110" height="120" rx="12" fill="#bfdbfe" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4 3"/>
+                    <text x="305" y="245" text-anchor="middle" font-weight="bold" fill="#1e40af" font-size="13">Le Tapis (3)</text>
+
+                    <!-- Table basse sur le tapis -->
+                    <rect x="270" y="200" width="70" height="60" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="2"/>
+                    <text x="305" y="235" text-anchor="middle" font-size="10" fill="#475569">Table basse</text>
+
+                    <!-- Plant / Jardin derrière la fenêtre -->
+                    <rect x="40" y="280" width="320" height="70" rx="8" fill="#dcfce7" stroke="#4ade80" stroke-width="2"/>
+                    <text x="200" y="320" text-anchor="middle" font-weight="bold" fill="#15803d" font-size="14">Le Jardin (4) - Derrière la maison</text>
+
+                    <!-- ROOM 2: LE SALON -->
+                    <text x="420" y="40" font-weight="bold" fill="#1e293b" font-size="16">2. LE SALON (Ruang Tamu)</text>
+
+                    <!-- Meuble TV & TV -->
+                    <rect x="440" y="70" width="180" height="45" rx="6" fill="#fed7aa" stroke="#ea580c" stroke-width="2"/>
+                    <rect x="470" y="80" width="120" height="12" rx="3" fill="#1e293b"/>
+                    <text x="530" y="60" text-anchor="middle" font-weight="bold" fill="#9a3412" font-size="13">Meuble TV + Télé (2)</text>
+
+                    <!-- Mur -->
+                    <line x1="390" y1="70" x2="390" y2="250" stroke="#cbd5e1" stroke-width="4"/>
+                    <text x="200" y="30" text-anchor="middle" font-weight="bold" fill="#64748b" font-size="12">Mur (6)</text>
+                </svg>
+            `,
+            ville: `
+                <svg viewBox="0 0 800 380" class="w-full h-auto rounded-xl shadow-inner bg-emerald-50/40">
+                    <!-- City Map Grass Background -->
+                    <rect x="10" y="10" width="780" height="360" rx="16" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="3"/>
+
+                    <!-- Main Roads -->
+                    <!-- Horizontal Main Street -->
+                    <rect x="10" y="170" width="780" height="50" fill="#94a3b8"/>
+                    <line x1="10" y1="195" x2="790" y2="195" stroke="#ffffff" stroke-width="3" stroke-dasharray="12 8"/>
+
+                    <!-- Vertical Street -->
+                    <rect x="360" y="10" width="50" height="360" fill="#94a3b8"/>
+                    <line x1="385" y1="10" x2="385" y2="370" stroke="#ffffff" stroke-width="3" stroke-dasharray="12 8"/>
+
+                    <!-- BUILDINGS / LOCATIONS -->
+
+                    <!-- 1. La Gare (Train Station) & Bus Stop -->
+                    <rect x="30" y="30" width="130" height="70" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+                    <text x="95" y="70" text-anchor="middle" font-weight="bold" fill="#3730a3" font-size="13">La Gare</text>
+
+                    <!-- Arrêt de bus (devant la gare) -->
+                    <rect x="30" y="125" width="130" height="30" rx="6" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+                    <text x="95" y="145" text-anchor="middle" font-weight="bold" fill="#854d0e" font-size="11">Arrêt de Bus (1)</text>
+
+                    <!-- 2. La Boulangerie & La Pharmacie -->
+                    <rect x="180" y="30" width="120" height="70" rx="8" fill="#ffedd5" stroke="#f97316" stroke-width="2"/>
+                    <text x="240" y="70" text-anchor="middle" font-weight="bold" fill="#9a3412" font-size="12">La Boulangerie (2)</text>
+
+                    <rect x="180" y="240" width="120" height="70" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+                    <text x="240" y="280" text-anchor="middle" font-weight="bold" fill="#166534" font-size="12">La Pharmacie</text>
+                    <text x="240" y="230" text-anchor="middle" font-style="italic" fill="#64748b" font-size="10">(En face de la boulangerie)</text>
+
+                    <!-- 3. Le Parc Public (près du centre-ville) -->
+                    <rect x="430" y="30" width="160" height="120" rx="16" fill="#bbf7d0" stroke="#16a34a" stroke-width="2"/>
+                    <circle cx="470" cy="70" r="15" fill="#4ade80"/>
+                    <circle cx="530" cy="90" r="20" fill="#22c55e"/>
+                    <text x="510" y="130" text-anchor="middle" font-weight="bold" fill="#14532d" font-size="13">Le Parc Public (3)</text>
+
+                    <!-- 4. L'Aéroport International (Loin de la ville) -->
+                    <rect x="620" y="30" width="150" height="80" rx="8" fill="#f1f5f9" stroke="#64748b" stroke-width="2"/>
+                    <text x="695" y="65" text-anchor="middle" font-weight="bold" fill="#334155" font-size="12">L'Aéroport (4)</text>
+                    <text x="695" y="85" text-anchor="middle" font-size="10" fill="#64748b">(Loin de la ville)</text>
+
+                    <!-- 5. Le Musée (Entre la banque et la poste) -->
+                    <rect x="430" y="240" width="80" height="70" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                    <text x="470" y="280" text-anchor="middle" font-weight="bold" fill="#78350f" font-size="11">La Banque</text>
+
+                    <rect x="525" y="240" width="90" height="70" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                    <text x="570" y="275" text-anchor="middle" font-weight="bold" fill="#0369a1" font-size="12">Le Musée (5)</text>
+
+                    <rect x="630" y="240" width="80" height="70" rx="6" fill="#fae8ff" stroke="#c084fc" stroke-width="2"/>
+                    <text x="670" y="280" text-anchor="middle" font-weight="bold" fill="#6b21a8" font-size="11">La Poste</text>
+
+                    <!-- 6. Le Petit Café (Au coin de la rue) -->
+                    <rect x="290" y="115" width="55" height="45" rx="6" fill="#fbcfe8" stroke="#db2777" stroke-width="2"/>
+                    <text x="317" y="142" text-anchor="middle" font-weight="bold" fill="#831843" font-size="10">Café (6)</text>
+                    <text x="317" y="110" text-anchor="middle" font-size="9" font-weight="bold" fill="#be185d">Au coin !</text>
+                </svg>
+            `
+        };
+
+        // Data Structure for 3 levels
+        const gameLevels = [
+            {
+                id: 1,
+                title: "Niveau 1 : Les bases des prépositions",
+                description: "Mencocokkan kata preposisi bahasa Prancis dengan arti/konsepnya dalam bahasa Indonesia.",
+                hasMap: false,
+                pairs: [
+                    { id: "1a", left: "dans", right: "di dalam (ruangan / tempat)", icon: "fa-inbox" },
+                    { id: "1b", left: "sur", right: "di atas (menempel di permukaan)", icon: "fa-arrow-up" },
+                    { id: "1c", left: "sous", right: "di bawah", icon: "fa-arrow-down" },
+                    { id: "1d", left: "devant", right: "di depan", icon: "fa-eye" },
+                    { id: "1e", left: "derrière", right: "di belakang", icon: "fa-ghost" },
+                    { id: "1f", left: "à côté de", right: "di samping / di sebelah", icon: "fa-people-arrows" }
+                ]
+            },
+            {
+                id: 2,
+                title: "Niveau 2 : Le logement (Dalam Rumah)",
+                description: "Perhatikan denah kamar di atas, lalu lengkapi kalimat dengan preposisi yang tepat.",
+                hasMap: true,
+                mapType: "logement",
+                mapTitle: "Plan du Logement (Denah Rumah & Kamar)",
+                pairs: [
+                    { id: "2a", left: "Le lit (1) se trouve...", right: "...dans la chambre.", icon: "fa-bed" },
+                    { id: "2b", left: "La télévision (2) est posée...", right: "...sur le meuble TV.", icon: "fa-tv" },
+                    { id: "2c", left: "Le tapis (3) est installé...", right: "...sous la table basse.", icon: "fa-rug" },
+                    { id: "2d", left: "Le jardin privé (4) est...", right: "...derrière la maison.", icon: "fa-tree" },
+                    { id: "2e", left: "La lampe de chevet (5) est...", right: "...à côté du lit.", icon: "fa-lightbulb" },
+                    { id: "2f", left: "Le lit est placé...", right: "...contre le mur (6).", icon: "fa-border-left" }
+                ]
+            },
+            {
+                id: 3,
+                title: "Niveau 3 : La ville (Tata Kota)",
+                description: "Perhatikan peta kota di atas, lalu hubungkan lokasi fasilitas umum dengan posisi preposisinya.",
+                hasMap: true,
+                mapType: "ville",
+                mapTitle: "Carte de la Ville (Peta Fasilitas Kota)",
+                pairs: [
+                    { id: "3a", left: "L'arrêt de bus (1) se trouve...", right: "...devant la gare.", icon: "fa-bus" },
+                    { id: "3b", left: "La boulangerie (2) est située...", right: "...en face de la pharmacie.", icon: "fa-bread-slice" },
+                    { id: "3c", left: "Le grand parc public (3) est...", right: "...près du centre-ville.", icon: "fa-tree" },
+                    { id: "3d", left: "L'aéroport international (4) est...", right: "...loin de la ville.", icon: "fa-plane" },
+                    { id: "3e", left: "Le musée (5) est placé...", right: "...entre la banque et la poste.", icon: "fa-landmark" },
+                    { id: "3f", left: "Le petit café (6) est...", right: "...au coin de la rue.", icon: "fa-mug-hot" }
+                ]
+            }
+        ];
+
+        // State variables
+        let currentLevelIndex = 0;
+        let selectedLeftId = null;
+        let selectedRightId = null;
+        
+        // Active Pairs State: Map of leftId -> { rightId, badgeIndex }
+        let activePairings = {};
+
+        // Sound synthesizer using standard Web Audio API
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+
+        function playSound(type) {
+            try {
+                if (!audioCtx) audioCtx = new AudioContext();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+
+                if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(400, now);
+                    gain.gain.setValueAtTime(0.05, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                    osc.start(now);
+                    osc.stop(now + 0.08);
+                } else if (type === 'pair') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    gain.gain.setValueAtTime(0.08, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+                    osc.start(now);
+                    osc.stop(now + 0.15);
+                } else if (type === 'win') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.setValueAtTime(659.25, now + 0.12);
+                    osc.frequency.setValueAtTime(783.99, now + 0.24);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+                    osc.start(now);
+                    osc.stop(now + 0.5);
+                }
+            } catch (e) {
+                // Audio fallback
+            }
+        }
+
+        function initLevel(levelIdx) {
+            currentLevelIndex = levelIdx;
+            selectedLeftId = null;
+            selectedRightId = null;
+            activePairings = {};
+
+            const currentData = gameLevels[levelIdx];
+            
+            // Header Indicator
+            document.getElementById('level-indicator').innerText = `Niveau ${levelIdx + 1}/3`;
+            document.getElementById('level-title-display').innerText = currentData.title;
+            updateTabsUI();
+
+            // Map Renderer
+            const mapContainer = document.getElementById('map-container');
+            if (currentData.hasMap) {
+                mapContainer.classList.remove('hidden');
+                document.getElementById('map-title').querySelector('span').innerText = currentData.mapTitle;
+                document.getElementById('map-svg-wrapper').innerHTML = VECTOR_MAPS[currentData.mapType];
+            } else {
+                mapContainer.classList.add('hidden');
+            }
+
+            // Shuffle right items deterministically or randomly
+            const leftItems = [...currentData.pairs];
+            const rightItems = [...currentData.pairs].sort(() => Math.random() - 0.5);
+
+            const leftContainer = document.getElementById('left-items');
+            const rightContainer = document.getElementById('right-items');
+
+            leftContainer.innerHTML = '';
+            rightContainer.innerHTML = '';
+
+            // Render Left Column Cards
+            leftItems.forEach((pair) => {
+                const card = document.createElement('div');
+                card.id = `left-${pair.id}`;
+                card.className = `match-card p-3.5 sm:p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-brand-300 hover:bg-brand-50/50 text-slate-700 flex items-center gap-3 cursor-pointer relative`;
+                card.onclick = () => handleLeftClick(pair.id);
+
+                card.innerHTML = `
+                    <div class="w-8 h-8 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center shrink-0 font-bold text-xs">
+                        <i class="fa-solid ${pair.icon || 'fa-location-dot'}"></i>
+                    </div>
+                    <span class="font-bold text-xs sm:text-sm leading-snug flex-grow">${pair.left}</span>
+                    <div id="left-badge-${pair.id}" class="shrink-0"></div>
+                `;
+                leftContainer.appendChild(card);
+            });
+
+            // Render Right Column Cards
+            rightItems.forEach((pair) => {
+                const card = document.createElement('div');
+                card.id = `right-${pair.id}`;
+                card.className = `match-card p-3.5 sm:p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-brand-300 hover:bg-brand-50/50 text-slate-700 flex items-center gap-3 cursor-pointer relative`;
+                card.onclick = () => handleRightClick(pair.id);
+
+                card.innerHTML = `
+                    <i class="fa-solid fa-circle-dot text-slate-300 text-xs shrink-0"></i>
+                    <span class="font-medium text-xs sm:text-sm leading-snug flex-grow">${pair.right}</span>
+                    <div id="right-badge-${pair.id}" class="shrink-0"></div>
+                `;
+                rightContainer.appendChild(card);
+            });
+
+            updateProgress();
+        }
+
+        function handleLeftClick(id) {
+            playSound('click');
+
+            // If already paired, unpair it first
+            if (activePairings[id]) {
+                unpair(id);
+                selectedLeftId = null;
+                return;
+            }
+
+            if (selectedLeftId === id) {
+                // Deselect
+                selectedLeftId = null;
+                highlightCard(`left-${id}`, false);
+                return;
+            }
+
+            if (selectedLeftId) {
+                highlightCard(`left-${selectedLeftId}`, false);
+            }
+
+            selectedLeftId = id;
+            highlightCard(`left-${id}`, true);
+
+            tryPairing();
+        }
+
+        function handleRightClick(id) {
+            playSound('click');
+
+            // Find if right is already paired
+            const existingLeftKey = Object.keys(activePairings).find(k => activePairings[k].rightId === id);
+            if (existingLeftKey) {
+                unpair(existingLeftKey);
+                selectedRightId = null;
+                return;
+            }
+
+            if (selectedRightId === id) {
+                // Deselect
+                selectedRightId = null;
+                highlightCard(`right-${id}`, false);
+                return;
+            }
+
+            if (selectedRightId) {
+                highlightCard(`right-${selectedRightId}`, false);
+            }
+
+            selectedRightId = id;
+            highlightCard(`right-${id}`, true);
+
+            tryPairing();
+        }
+
+        function tryPairing() {
+            if (selectedLeftId && selectedRightId) {
+                playSound('pair');
+
+                // Determine next available badge color
+                const usedBadgeIndices = Object.values(activePairings).map(p => p.badgeIndex);
+                let availableBadgeIndex = 0;
+                for (let i = 0; i < PAIR_BADGES.length; i++) {
+                    if (!usedBadgeIndices.includes(i)) {
+                        availableBadgeIndex = i;
+                        break;
+                    }
+                }
+
+                // Register pairing
+                activePairings[selectedLeftId] = {
+                    rightId: selectedRightId,
+                    badgeIndex: availableBadgeIndex
+                };
+
+                const badge = PAIR_BADGES[availableBadgeIndex];
+
+                // Render Badge on Left
+                const leftBadgeContainer = document.getElementById(`left-badge-${selectedLeftId}`);
+                leftBadgeContainer.innerHTML = `
+                    <span class="badge-assigned px-2.5 py-1 rounded-lg text-xs font-black ${badge.bg} ${badge.text} shadow-sm">
+                        ${badge.letter}
+                    </span>
+                `;
+
+                // Render Badge on Right
+                const rightBadgeContainer = document.getElementById(`right-badge-${selectedRightId}`);
+                rightBadgeContainer.innerHTML = `
+                    <span class="badge-assigned px-2.5 py-1 rounded-lg text-xs font-black ${badge.bg} ${badge.text} shadow-sm">
+                        ${badge.letter}
+                    </span>
+                `;
+
+                // Set Active Styling
+                const leftCard = document.getElementById(`left-${selectedLeftId}`);
+                const rightCard = document.getElementById(`right-${selectedRightId}`);
+
+                leftCard.className = `match-card p-3.5 sm:p-4 rounded-2xl border-2 ${badge.border} bg-brand-50/40 text-slate-800 flex items-center gap-3 cursor-pointer relative`;
+                rightCard.className = `match-card p-3.5 sm:p-4 rounded-2xl border-2 ${badge.border} bg-brand-50/40 text-slate-800 flex items-center gap-3 cursor-pointer relative`;
+
+                selectedLeftId = null;
+                selectedRightId = null;
+
+                updateProgress();
+            }
+        }
+
+        function unpair(leftId) {
+            playSound('click');
+            const rightId = activePairings[leftId].rightId;
+
+            delete activePairings[leftId];
+
+            // Clear Badges
+            document.getElementById(`left-badge-${leftId}`).innerHTML = '';
+            document.getElementById(`right-badge-${rightId}`).innerHTML = '';
+
+            // Reset Card Style
+            const leftCard = document.getElementById(`left-${leftId}`);
+            const rightCard = document.getElementById(`right-${rightId}`);
+
+            leftCard.className = `match-card p-3.5 sm:p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-brand-300 hover:bg-brand-50/50 text-slate-700 flex items-center gap-3 cursor-pointer relative`;
+            rightCard.className = `match-card p-3.5 sm:p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-brand-300 hover:bg-brand-50/50 text-slate-700 flex items-center gap-3 cursor-pointer relative`;
+
+            updateProgress();
+        }
+
+        function highlightCard(cardId, isSelected) {
+            const card = document.getElementById(cardId);
+            if (isSelected) {
+                card.classList.remove('border-slate-200', 'bg-white');
+                card.classList.add('border-brand-500', 'bg-brand-100', 'ring-2', 'ring-brand-400');
+            } else {
+                card.classList.remove('border-brand-500', 'bg-brand-100', 'ring-2', 'ring-brand-400');
+                card.classList.add('border-slate-200', 'bg-white');
+            }
+        }
+
+        function updateProgress() {
+            const pairedCount = Object.keys(activePairings).length;
+            const totalPairs = gameLevels[currentLevelIndex].pairs.length;
+            const percentage = (pairedCount / totalPairs) * 100;
+
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+            document.getElementById('progress-text').innerText = `${pairedCount}/${totalPairs} Terpasang`;
+
+            const verifyBtn = document.getElementById('verify-btn');
+            if (pairedCount === totalPairs) {
+                verifyBtn.disabled = false;
+                verifyBtn.className = "px-6 py-3 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm transition flex items-center gap-2 shadow-lg shadow-brand-600/20 cursor-pointer animate-bounce";
+            } else {
+                verifyBtn.disabled = true;
+                verifyBtn.className = "px-6 py-3 rounded-2xl bg-slate-200 text-slate-400 font-bold text-sm transition flex items-center gap-2 cursor-not-allowed";
+            }
+        }
+
+        function verifyAnswers() {
+            playSound('win');
+
+            const currentPairs = gameLevels[currentLevelIndex].pairs;
+            let correctCount = 0;
+            let breakdownHTML = '';
+
+            currentPairs.forEach((pair) => {
+                const userChoice = activePairings[pair.id];
+                const isCorrect = userChoice && userChoice.rightId === pair.id;
+                
+                if (isCorrect) correctCount++;
+
+                const rightText = currentPairs.find(p => p.id === (userChoice ? userChoice.rightId : ''))?.right || '-';
+
+                breakdownHTML += `
+                    <div class="p-3 rounded-xl border flex items-center justify-between ${isCorrect ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-rose-50 border-rose-200 text-rose-900'}">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid ${isCorrect ? 'fa-circle-check text-emerald-600' : 'fa-circle-xmark text-rose-500'}"></i>
+                            <div>
+                                <p class="font-bold text-xs">${pair.left} <span class="font-normal text-slate-600">${userChoice ? rightText : 'Belum dijawab'}</span></p>
+                                ${!isCorrect ? `<p class="text-[11px] text-emerald-700 italic mt-0.5">Jawaban Tepat: <strong>${pair.right}</strong></p>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const total = currentPairs.length;
+            const accuracy = Math.round((correctCount / total) * 100);
+
+            document.getElementById('final-score').innerText = `${correctCount}/${total}`;
+            document.getElementById('final-accuracy').innerText = `${accuracy}%`;
+            document.getElementById('answers-breakdown').innerHTML = breakdownHTML;
+
+            const badge = document.getElementById('feedback-badge');
+            const title = document.getElementById('feedback-title');
+            const subtitle = document.getElementById('feedback-subtitle');
+            const grade = document.getElementById('final-grade');
+            const notesContainer = document.getElementById('feedback-notes');
+
+            if (accuracy === 100) {
+                badge.className = "w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-4xl mx-auto mb-4 shadow-inner";
+                badge.innerHTML = '<i class="fa-solid fa-trophy"></i>';
+                title.innerText = "Parfait ! Tout est correct !";
+                subtitle.innerText = "Sempurna! Semua preposisi berhasil dijodohkan dengan sangat tepat.";
+                grade.innerText = "A1 Master";
+            } else if (accuracy >= 60) {
+                badge.className = "w-20 h-20 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-4xl mx-auto mb-4 shadow-inner";
+                badge.innerHTML = '<i class="fa-solid fa-medal"></i>';
+                title.innerText = "Très Bien !";
+                subtitle.innerText = "Hasil yang bagus! Kamu memahami sebagian besar preposisi tempat.";
+                grade.innerText = "A1 Avancé";
+            } else {
+                badge.className = "w-20 h-20 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-4xl mx-auto mb-4 shadow-inner";
+                badge.innerHTML = '<i class="fa-solid fa-seedling"></i>';
+                title.innerText = "Continuez vos efforts !";
+                subtitle.innerText = "Jangan berkecil hati! Mari ulas rincian jawaban dan perbaiki pada percobaan berikutnya.";
+                grade.innerText = "A1 Apprenant";
+            }
+
+            // Specific Grammar Feedback per Level
+            let grammarNote = '';
+            if (currentLevelIndex === 0) {
+                grammarNote = `
+                    <p><strong><i class="fa-solid fa-check text-brand-600 mr-1"></i> Konsep Dasar:</strong> Preposisi seperti <em>dans, sur, sous, devant, derrière</em> menunjukkan lokasi langsung objek terhadap objek lain tanpa memerlukan perubahan artikel kata benda.</p>
+                `;
+            } else if (currentLevelIndex === 1) {
+                grammarNote = `
+                    <p><strong><i class="fa-solid fa-check text-brand-600 mr-1"></i> Preposisi Rumah (Le Logement):</strong> Perhatikan penggunaan <em>à côté de</em> (membutuhkan kontraksi artikel: <em>de + le = du</em>, contoh: <em>à côté du lit</em>) serta penggunaan <em>dans</em> untuk nama ruangan rumah.</p>
+                `;
+            } else {
+                grammarNote = `
+                    <p><strong><i class="fa-solid fa-check text-brand-600 mr-1"></i> Preposisi Tata Kota (La Ville):</strong> Ungkapan <em>en face de, près de, loin de</em> memerlukan kontraksi artikel maskulin (<em>de + le = du</em>). Kata <em>entre</em> selalu berada di antara dua kata benda (misal: <em>entre la banque et la poste</em>).</p>
+                `;
+            }
+            notesContainer.innerHTML = grammarNote;
+
+            // Configure Next Level Button
+            const nextBtn = document.getElementById('next-level-btn');
+            if (currentLevelIndex < gameLevels.length - 1) {
+                nextBtn.innerHTML = `<span>Lanjut ke Niveau ${currentLevelIndex + 2}</span> <i class="fa-solid fa-arrow-right"></i>`;
+                nextBtn.onclick = () => {
+                    closeFeedbackModal();
+                    switchLevel(currentLevelIndex + 2);
+                };
+            } else {
+                nextBtn.innerHTML = `<span>Ulangi dari Niveau 1</span> <i class="fa-solid fa-rotate-left"></i>`;
+                nextBtn.onclick = () => {
+                    closeFeedbackModal();
+                    switchLevel(1);
+                };
+            }
+
+            document.getElementById('feedback-modal').classList.remove('hidden');
+        }
+
+        function updateTabsUI() {
+            for (let i = 1; i <= 3; i++) {
+                const btn = document.getElementById(`tab-lvl-${i}`);
+                if (i === currentLevelIndex + 1) {
+                    btn.className = "tab-btn px-4 py-2.5 rounded-2xl text-sm font-bold transition flex items-center gap-2 bg-brand-600 text-white shadow-md shadow-brand-600/20";
+                } else {
+                    btn.className = "tab-btn px-4 py-2.5 rounded-2xl text-sm font-bold transition flex items-center gap-2 bg-white text-slate-600 hover:bg-brand-50 border border-slate-200";
+                }
+            }
+        }
+
+        function switchLevel(lvlNum) {
+            initLevel(lvlNum - 1);
+        }
+
+        function resetCurrentLevel() {
+            initLevel(currentLevelIndex);
+        }
+
+        function closeFeedbackModal() {
+            document.getElementById('feedback-modal').classList.add('hidden');
+        }
+
+        function toggleRevisionModal() {
+            playSound('click');
+            const modal = document.getElementById('revision-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Initialize on Load
+        window.onload = function() {
+            initLevel(0);
+        };
+    </script>
+</body>
+</html>
